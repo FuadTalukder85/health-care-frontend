@@ -1,4 +1,4 @@
-import { Box, Container, Stack, Typography } from "@mui/material";
+import { Box, Button, Container, Stack, Typography } from "@mui/material";
 import Image from "next/image";
 import React from "react";
 
@@ -22,7 +22,7 @@ const Specialist = async () => {
           </Typography>
         </Box>
         <Stack direction={"row"} gap={4} mt={5}>
-          {specialties.map((speciality: any) => (
+          {specialties?.map((speciality: any) => (
             <Box
               key={speciality.id}
               sx={{
@@ -31,6 +31,18 @@ const Specialist = async () => {
                 backgroundColor: "rgba(245, 245, 245, 1)",
                 border: "1px solid rgba(250, 250, 250, 1)",
                 borderRadius: "10px",
+                textAlign: "center",
+                padding: "40px 10px",
+                "& img": {
+                  width: "50px",
+                  height: "50px",
+                  margin: "0 auto",
+                },
+                "&:hover": {
+                  border: "1px solid blue",
+                  borderRadius: "10px",
+                  padding: "40px 10px",
+                },
               }}
             >
               <Image
@@ -40,13 +52,16 @@ const Specialist = async () => {
                 alt="speciality icon"
               ></Image>
               <Box>
-                <Typography component={"p"} fontWeight={300} fontSize={"18px"}>
+                <Typography component={"p"} fontWeight={600} fontSize={"18px"}>
                   {speciality?.title}
                 </Typography>
               </Box>
             </Box>
           ))}
         </Stack>
+        <Button variant="outlined" sx={{ marginTop: "20px" }}>
+          View All
+        </Button>
       </Box>
     </Container>
   );
