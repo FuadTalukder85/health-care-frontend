@@ -11,8 +11,31 @@ import {
 import Image from "next/image";
 import assets from "@/assets";
 import Link from "next/link";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { userLogin } from "@/services/actions/userLogin";
+import { storeUserInfo } from "@/services/auth.services";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import PHForm from "@/components/Forms/PHForm";
+import PHInput from "@/components/Forms/PHInput";
 
 const LoginPage = () => {
+  const router = useRouter();
+
+  const handleLogin = async (values: FieldValues) => {
+    console.log(values);
+
+    try {
+      const res = await userLogin(values);
+      if (res?.data?.accessToken) {
+        toast.success(res?.message);
+        storeUserInfo({ accessToken: res?.data?.accessToken });
+        router.push("/");
+      }
+    } catch (err: any) {
+      console.error(err.message);
+    }
+  };
   return (
     <Container>
       <Stack
@@ -49,22 +72,22 @@ const LoginPage = () => {
             </Box>
           </Stack>
           <Box>
-            <form action="">
+            <PHForm onSubmit={handleLogin}>
               <Grid container spacing={2} my={1}>
                 <Grid item md={6}>
-                  <TextField
+                  <PHInput
+                    name="email"
                     label="Email"
                     type="email"
-                    variant="outlined"
                     size="small"
                     fullWidth={true}
                   />
                 </Grid>
                 <Grid item md={6}>
-                  <TextField
-                    label="Password"
+                  <PHInput
+                    name="password"
+                    label="password"
                     type="password"
-                    variant="outlined"
                     size="small"
                     fullWidth={true}
                   />
@@ -78,14 +101,14 @@ const LoginPage = () => {
               >
                 Forgot password?
               </Typography>
-              <Button sx={{ margin: "10px 0" }} fullWidth={true}>
+              <Button type="submit" sx={{ margin: "10px 0" }} fullWidth={true}>
                 Login
               </Button>
               <Typography component="p" fontWeight={300}>
                 Don&apos;t have have an account?{" "}
                 <Link href={"/register"}>Create an account</Link>
               </Typography>
-            </form>
+            </PHForm>
           </Box>
         </Box>
       </Stack>
