@@ -14,7 +14,7 @@ const PHForm = ({ children, onSubmit }: TFormProps) => {
   const methods = useForm();
   const { handleSubmit, reset } = methods;
   const submit: SubmitErrorHandler<FieldValues> = (data) => {
-    console.log(data);
+    // console.log(data);
     onSubmit(data);
     reset();
   };
