@@ -11,8 +11,10 @@ type TProps = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const SpecialistModal = ({ open, setOpen }: TProps) => {
-  const handleFormSubmit = (values: FieldValues) => {};
+const SpecialtyModal = ({ open, setOpen }: TProps) => {
+  const handleFormSubmit = (values: FieldValues) => {
+    console.log(values);
+  };
   return (
     <div>
       <PHModal open={open} setOpen={setOpen} title="Create a new Speciality">
@@ -22,7 +24,7 @@ const SpecialistModal = ({ open, setOpen }: TProps) => {
               <PHInput name="title" label="Title" size="small"></PHInput>
             </Grid>
             <Grid item md={6}>
-              <PHFileUploader></PHFileUploader>
+              <PHFileUploader name="file" label="Upload file"></PHFileUploader>
             </Grid>
           </Grid>
           <Button sx={{ mt: 1 }} type="submit">
@@ -34,4 +36,4 @@ const SpecialistModal = ({ open, setOpen }: TProps) => {
   );
 };
 
-export default SpecialistModal;
+export default SpecialtyModal;
